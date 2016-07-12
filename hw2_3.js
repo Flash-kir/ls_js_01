@@ -1,5 +1,7 @@
-function calculator(n){
-  function sum(){
+'use strict';
+
+function calculator(n) {
+  function sum() {
     res = n;
     for (let i = 0; i < arguments.length; i++) {
       res += arguments[i];
@@ -7,7 +9,7 @@ function calculator(n){
     return res;
   };
 
-  function dif(){
+  function dif() {
     res = n;
     for (let i = 0; i < arguments.length; i++) {
       res -= arguments[i];
@@ -15,7 +17,7 @@ function calculator(n){
     return res;
   };
 
-   function div(){
+   function div() {
      try {
        res = n;
        for (let i = 0; i < arguments.length; i++) {
@@ -31,7 +33,7 @@ function calculator(n){
      catch(e) {console.log(e.message);}
   };
 
-  function mul(){
+  function mul() {
     res = n;
     for (let i = 0; i < arguments.length; i++) {
       res *= arguments[i];
