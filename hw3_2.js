@@ -9,7 +9,7 @@ function deepEqual(obj1, obj2) {
   var res = true;
   let l1 = obj1.length, l2 = obj2.length,
       lp1 = pLen(obj1), lp2 = pLen(obj2);
-  if ( obj1.valueOf() == obj2.valueOf() && typeof( obj1.valueOf() ) != "object" ) {
+  if ( obj1.valueOf() === obj2.valueOf() && typeof( obj1.valueOf() ) != "object" ) {
     res = true;
   } else if (l1 && l2 && l1 == l2) {
     for (let i = 0; i < l1; i++) {
