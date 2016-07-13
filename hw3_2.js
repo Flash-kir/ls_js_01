@@ -1,3 +1,5 @@
+'use strict';
+
 function pLen(obj, l=1) {
   if (l == 1) {
     return Object.getOwnPropertyNames(obj).length;
