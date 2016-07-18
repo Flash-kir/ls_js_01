@@ -13,4 +13,4 @@ function isSomeTrue(source, filterFn) {
   }
 };
 
-module.exports = isSomeTrue
+module.exports = isSomeTrue;

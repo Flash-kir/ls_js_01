@@ -2,7 +2,7 @@
 
 function calculator(n) {
   function sum() {
-    res = n;
+    var res = n;
     for (let i = 0; i < arguments.length; i++) {
       res += arguments[i];
     };
@@ -10,7 +10,7 @@ function calculator(n) {
   };
 
   function dif() {
-    res = n;
+    var res = n;
     for (let i = 0; i < arguments.length; i++) {
       res -= arguments[i];
     };
@@ -18,7 +18,7 @@ function calculator(n) {
   };
 
    function div() {
-     res = n;
+     var res = n;
      for (let i = 0; i < arguments.length; i++) {
        if (arguments[i] != 0){
          res /= arguments[i];
@@ -31,7 +31,7 @@ function calculator(n) {
   };
 
   function mul() {
-    res = n;
+    var res = n;
     for (let i = 0; i < arguments.length; i++) {
       res *= arguments[i];
     };
@@ -39,10 +39,10 @@ function calculator(n) {
   };
 
   return {
-    sum: sum, 
-    dif: dif,
-    div: div,
-    mul: mul
+    sum, 
+    dif,
+    div,
+    mul
   }  
 };
 
