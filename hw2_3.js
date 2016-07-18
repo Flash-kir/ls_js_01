@@ -18,19 +18,16 @@ function calculator(n) {
   };
 
    function div() {
-     try {
-       res = n;
-       for (let i = 0; i < arguments.length; i++) {
-         if (arguments[i] != 0){
-           res /= arguments[i];
-         }
-         else {
-           throw new Error("На ноль делить нельзя!!");
-         }
-       };
-       return res;
-     }
-     catch(e) {console.log(e.message);}
+     res = n;
+     for (let i = 0; i < arguments.length; i++) {
+       if (arguments[i] != 0){
+         res /= arguments[i];
+       }
+       else {
+         throw new Error("На ноль делить нельзя!!");
+       }
+     };
+     return res;
   };
 
   function mul() {
