@@ -64,19 +64,23 @@
 
 	function deleteTextNodes(el) {
 	  let cn = el.childNodes;
-	  for (let i = cn.length - 1; i >= 0; i--) {
-	    if (cn[i].nodeType == 3) {
-	      el.removeChild(cn[i]);
-	    } else if (cn[i].childNodes.length > 0) {
-	      deleteTextNodes(cn[i]);
+	  console.log(el.childNodes);
+	  for (let i = cn.length; i > 0; i--) {
+	    console.log(cn[i - 1], cn[i - 1].nodeType);
+	    if (cn[i - 1].nodeType == 3) {
+	      console.log(cn[i - 1]);
+	      el.removeChild(cn[i - 1]);
+	      console.log(cn[i - 1]);
+	    } else if (cn[i - 1].childNodes.length > 0) {
+	      console.log("else", cn[i - 1], cn[i - 1].nodeType);
+	      deleteTextNodes(cn[i - 1]);
 	    }
 	  }
 	}
 
-	let dict = { tag: {}, text: {}, class: {} };
+	let dict = {};
 
 	function add(dict, elem) {
-	  // console.log(dict, elem);
 	  if (dict[elem]) {
 	    dict[elem] += 1;
 	  } else {
@@ -97,6 +101,9 @@
 	}
 
 	function scanDOM(el) {
+	  if (Object.keys(dict).length == 0) {
+	    dict = { tag: {}, text: { text: 0 }, class: {} };
+	  }
 	  if (el.nodeType == 3) {
 	    add(dict.text, 'text');
 	  } else if (el.nodeType == 1) {
@@ -116,6 +123,7 @@
 
 	  if (el == document) {
 	    log(dict);
+	    dict = {};
 	  }
 	}
 
