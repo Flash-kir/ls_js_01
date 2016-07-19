@@ -1,0 +1,155 @@
+@import url(normalize.css);
+* {
+  box-sizing: border-box; }
+
+html {
+  height: 100%;
+  width: 100%;
+  font-size: 15px; }
+  @media screen and (max-width: 1200px) {
+    html {
+      font-size: 15px; } }
+  @media screen and (max-width: 992px) {
+    html {
+      font-size: 14px; } }
+  @media screen and (max-width: 768px) {
+    html {
+      font-size: 14px; } }
+  @media screen and (max-width: 460px) {
+    html {
+      font-size: 14px; } }
+
+body {
+  height: 100%;
+  width: 100%;
+  font-family: "Fira Sans";
+  font-weight: 500;
+  line-height: 1.42;
+  --webkit-font-smoothing: antialiased;
+  background-color: #fff; }
+
+h2 {
+  margin: 0;
+  padding: 0; }
+
+.wrapper {
+  min-width: 100%;
+  min-height: 100%; }
+  @media screen and (max-width: 1200px) {
+    .wrapper {
+      min-width: 960px; } }
+  @media screen and (max-width: 992px) {
+    .wrapper {
+      min-width: 768px; } }
+  @media screen and (max-width: 768px) {
+    .wrapper {
+      min-width: 460px; } }
+  @media screen and (max-width: 460px) {
+    .wrapper {
+      min-width: 320px;
+      min-height: 0;
+      height: auto; } }
+
+ul {
+  padding: 0;
+  margin: 0; }
+
+li {
+  list-style: none; }
+
+@font-face {
+  font-family: 'fira_sansbold';
+  src: url("../fonts/firasans-bold-webfont.woff") format("woff"), url("../fonts/firasans-bold-webfont.svg#fira_sansbold") format("svg");
+  font-weight: normal;
+  font-style: normal; }
+
+@font-face {
+  font-family: 'fira_sanslight';
+  src: url("../fonts/firasans-light-webfont.woff") format("woff"), url("../fonts/firasans-light-webfont.svg#fira_sanslight") format("svg");
+  font-weight: normal;
+  font-style: normal; }
+
+@font-face {
+  font-family: 'fira_sansmedium';
+  src: url("../fonts/firasans-medium-webfont.woff") format("woff"), url("../fonts/firasans-medium-webfont.svg#fira_sansmedium") format("svg");
+  font-weight: normal;
+  font-style: normal; }
+
+@font-face {
+  font-family: 'fira_sansregular';
+  src: url("../fonts/firasans-regular-webfont.woff") format("woff"), url("../fonts/firasans-regular-webfont.svg#fira_sansregular") format("svg");
+  font-weight: normal;
+  font-style: normal; }
+
+.accordion {
+  position: absolute;
+  max-width: 460px;
+  width: 47.918%;
+  left: 50%;
+  top: 17.3%;
+  margin-left: -230px;
+  text-align: center; }
+  @media screen and (max-width: 992px) {
+    .accordion {
+      margin-left: -23.959%; } }
+  .accordion .accordion__image {
+    display: inline-block;
+    vertical-align: top;
+    max-width: 46.957%; }
+    .accordion .accordion__image img {
+      min-width: 100%;
+      margin-bottom: 23px; }
+
+.accordion__item {
+  margin-bottom: 5px;
+  text-align: left;
+  margin-left: 1px;
+  background-color: #e7e7e7;
+  border-radius: 20px;
+  overflow: hidden; }
+  .accordion__item h2 {
+    position: relative;
+    border-radius: 20px;
+    padding: 12px 41px 9px 20px;
+    font-family: fira_sansmedium;
+    font-size: 15px; }
+    .accordion__item h2:after {
+      content: "";
+      width: 0;
+      height: 0;
+      border-left: 7px solid transparent;
+      border-right: 7px solid transparent;
+      border-bottom: 0 solid white;
+      border-top: 12px solid white;
+      position: absolute;
+      display: block;
+      right: 21px;
+      top: 50%;
+      margin-top: -5px;
+      transition: border-width linear 0.5s; }
+  .accordion__item ul {
+    padding: 6px 41px 9px 20px;
+    display: none; }
+  .accordion__item li {
+    font-family: fira_sanslight;
+    margin-top: 5px; }
+  .accordion__item:nth-child(even):not(.active) h2 {
+    background-color: #696666;
+    color: #fff; }
+  .accordion__item:nth-child(odd):not(.active) h2 {
+    background-color: #e7e7e7;
+    color: #4f4f4f; }
+  .accordion__item:nth-child(even):not(.active):hover h2, .accordion__item:nth-child(odd):not(.active):hover h2 {
+    background-color: #ff8663;
+    transition: .5s;
+    color: #fff; }
+
+.active h2 {
+  background-color: #ff8663;
+  color: #fff; }
+  .active h2:after {
+    border-top-width: 0;
+    border-bottom-width: 12px; }
+
+.active ul {
+  display: block; }
