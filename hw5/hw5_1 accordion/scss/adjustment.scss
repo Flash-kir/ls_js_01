@@ -1,0 +1,64 @@
+* {
+    box-sizing: border-box;
+}
+
+html {
+    height: 100%;
+    width: 100%;
+    font-size: 15px;
+    @include desktop {
+        font-size: 15px;
+    }
+    @include laptop {
+        font-size: 14px;
+    }
+    @include tablets {
+        font-size: 14px;
+    }
+    @include phones {
+        font-size: 14px;
+    }
+}
+
+body {
+    height: 100%;
+    width: 100%;
+    font-family: "Fira Sans";
+    font-weight: 500;
+    line-height: 1.42;
+    --webkit-font-smoothing: antialiased;
+    background-color: #fff;
+}
+
+h2 {
+    margin: 0;
+    padding: 0;
+}
+
+.wrapper {
+    min-width: 100%;
+    min-height: 100%;
+    @include desktop {
+        min-width: 960px;
+    }
+    @include laptop {
+        min-width: 768px;
+    }
+    @include tablets {
+        min-width: 460px;
+    }
+    @include phones {
+        min-width: 320px;
+        min-height: 0;
+        height: auto;
+    }
+}
+
+ul {
+    padding: 0;
+    margin: 0;
+}
+
+li {
+    list-style: none;
+}
