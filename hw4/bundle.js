@@ -93,12 +93,10 @@
 	  for (let i = classKeys.length; i > 0; i--) {
 	    console.log("Элементов с классом " + classKeys[i - 1] + ": " + dict.class[classKeys[i - 1]]);
 	  }
+	  dict = {};
 	}
 
-	function scanDOM(el) {
-	  if (Object.keys(dict).length == 0) {
-	    dict = { tag: {}, text: { text: 0 }, class: {} };
-	  }
+	function scanElem(el, dict) {
 	  if (el.nodeType == 3) {
 	    add(dict.text, 'text');
 	  } else if (el.nodeType == 1) {
@@ -112,14 +110,17 @@
 
 	  if (el.childNodes.length) {
 	    for (let i = el.childNodes.length; i > 0; i--) {
-	      scanDOM(el.childNodes[i - 1]);
+	      scanElem(el.childNodes[i - 1], dict);
 	    }
 	  }
+	}
 
-	  if (el == document) {
-	    log(dict);
-	    dict = {};
-	  }
+	function scanDOM(el) {
+	  dict = { tag: {}, text: { text: 0 }, class: {} };
+
+	  scanElem(el, dict);
+
+	  log(dict);
 	}
 
 	module.exports = { prepender, deleteTextNodes, scanDOM };
