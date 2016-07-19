@@ -64,15 +64,10 @@
 
 	function deleteTextNodes(el) {
 	  let cn = el.childNodes;
-	  console.log(el.childNodes);
 	  for (let i = cn.length; i > 0; i--) {
-	    console.log(cn[i - 1], cn[i - 1].nodeType);
 	    if (cn[i - 1].nodeType == 3) {
-	      console.log(cn[i - 1]);
 	      el.removeChild(cn[i - 1]);
-	      console.log(cn[i - 1]);
 	    } else if (cn[i - 1].childNodes.length > 0) {
-	      console.log("else", cn[i - 1], cn[i - 1].nodeType);
 	      deleteTextNodes(cn[i - 1]);
 	    }
 	  }
