@@ -1,22 +1,28 @@
+'use strict';
+
+function toggleItem(el){
+  if (el.parentNode.classList.contains("active")) {
+    hide_all();
+    el.parentNode.classList.remove("active");
+  } else {
+    hide_all();
+    el.parentNode.classList.add("active");
+  }
+}
+
 function init(){
-    hide_all(1);
-}
-function hide_all(init){
-    var divs = document.getElementsByClassName("accordion__item");
-    for (var i=0; i<divs.length; i++){
-        console.log(init);
-        if (init == 1){
-            divs[i].getElementsByTagName("h2")[0].onclick = toggleItem;
-        }
-        divs[i].classList.remove("active");
+  hide_all();
+  var acc = document.getElementById("accordion");
+  function clkFn(e) {
+    if (e.target.nodeName == 'H2') {
+      toggleItem(e.target);
     }
+  }
+  acc.addEventListener('click', clkFn);
 }
-function toggleItem(){
-    if (this.parentNode.classList.contains("active")) {
-        hide_all();
-        this.parentNode.classList.remove("active");
-    } else {
-        hide_all();
-        this.parentNode.classList.add("active");
-    }
+function hide_all(){
+  let divs = document.getElementsByClassName("active");
+  for (var i=0; i<divs.length; i++){
+    divs[i].classList.remove("active");
+  }
 }
