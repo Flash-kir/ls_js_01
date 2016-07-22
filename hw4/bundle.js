@@ -116,6 +116,9 @@
 	}
 
 	function scanDOM(el) {
+	  if (!el) {
+	    el = document;
+	  }
 	  dict = { tag: {}, text: { text: 0 }, class: {} };
 
 	  scanElem(el, dict);
