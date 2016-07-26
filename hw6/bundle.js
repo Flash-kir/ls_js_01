@@ -81,8 +81,13 @@
 	    }
 	    if (!ul_el.childElementCount) {
 	      let li_el = document.createElement("LI");
-	      li_el.textContent = "Совпадений не найдено";
-	      ul_el.appendChild(li_el);
+	      if (search.value) {
+	        li_el.textContent = "Совпадений не найдено";
+	        ul_el.appendChild(li_el);
+	      } else {
+	        li_el.textContent = "Совпадений не найдено";
+	        ul_el.innerHTML = "";
+	      }
 	    }
 	  });
 	});
