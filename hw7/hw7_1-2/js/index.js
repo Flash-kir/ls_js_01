@@ -1,68 +1,64 @@
 'use strict';
 
-let btn = document.getElementById("btn");
-let sh = document.getElementById("sheet");
-let activeElement = null, cX = 0, cY = 0;
+let name = document.getElementById("name"),
+  value= document.getElementById("value"),
+  expire = document.getElementById("expire");
 
-function getRandom(min, max) {
-  return Math.round(Math.random() * (max - min) + min);
+
+
+function addTr(name, value) {
+  let tbody = document.getElementsByClassName("tbody")[0];
+  tbody.innerHTML += "<tr><td>"+ name +"</td>" +
+      "<td>"+ value +"</td>" +
+      "<td><div class='btn-rm'>x</div></td></tr>";
 }
 
-function getBlk() {
-  let blk = document.createElement('div');
-  let blkBtn = document.createElement('div');
-  let w = 0, h = 0, t = 0, l = 0;
-  l = getRandom(sh.offsetLeft, sh.clientWidth-sh.offsetLeft);
-  t = getRandom(sh.offsetTop, sh.clientHeight-sh.offsetTop);
-  w = getRandom(20, sh.clientWidth-l);
-  h = getRandom(20, sh.clientHeight-t);
-  blk.className = "blk";
-  blkBtn.className = "blk__btn-rm";
-  blkBtn.innerText = "x";
-  blk.style = "background-color: rgb("+getRandom(0,255)+","+getRandom(0,255)+","+getRandom(0,255)+"); "+
-    "position: absolute; "+
-    "left: "+l+"px; "+
-    "top: "+t+"px; "+
-    "width: "+w+"px; "+
-    "height: "+h+"px; ";
-  blk.appendChild(blkBtn);
-  console.log(blk.clientWidth);
-  return blk
-}
-
-function add(e) {
-  sh.appendChild(getBlk())
+function createTable() {
+  let cookie = document.cookie.split('; ');
+  let table = document.createElement("table");
+  table.className = "table";
+  table.innerHTML = "<thead class='thead'><th>cookie name</th><th>cookie value</th><th>cookie btns</th></thead>" +
+      "<tbody class='tbody'></tbody>";
+  document.body.appendChild(table);
+  if (document.cookie) {
+    for (let i = 0; i < cookie.length; i++) {
+      addTr(cookie[i].split('=')[0], cookie[i].split('=')[1]);
+    }
+  }
 }
 
 function del(el) {
-  el.parentNode.remove();
-}
-
-function blk(e) {
-  if (e.target.className == 'blk__btn-rm') {
-    del(e.target);
+  let isDel = confirm("Удалить cookie с именем "+ el.firstChild.innerText +"?");
+  if (isDel) {
+    var date = new Date(0);
+    document.cookie = el.firstChild.innerText+"=; expires=" + date.toUTCString();
+    el.remove();
   }
 }
 
-function mDown(e) {
-  activeElement = e.target;
-  cX = e.offsetX;
-  cY = e.offsetY;
-}
-
-function mUp(e) {
-  activeElement = null;
-}
-
-function mMove(e) {
-  if (activeElement) {
-    activeElement.style.left = (e.clientX - cX) + 'px';
-    activeElement.style.top = (e.clientY - cY) + 'px';
+function click(e) {
+  if (e.target.className == 'btn-rm') {
+    del(e.target.parentNode.parentNode);
+  } else if (e.target.className == 'btn-add') {
+    if (name.value && value.value && expire.value) {
+      let exp = expire.value;
+      var date = new Date;
+      if (exp*2) {
+        date.setDate(date.getDate() + exp*1);
+        document.cookie = name.value + "=" + value.value + "; expires=" + date.toUTCString();
+        addTr(name.value, value.value);
+        expire.value = "";
+        name.value = "";
+        value.value = "";
+      } else {
+        alert("incoorect expires!");
+        expire.value = "";
+      }
+    } else {
+      alert("Заполните все поля формы");
+    }
   }
 }
 
-btn.addEventListener('click', add);
-sh.addEventListener('click', blk);
-sh.addEventListener('mousedown', mDown);
-sh.addEventListener('mouseup', mUp);
-sh.addEventListener('mousemove', mMove);
+document.addEventListener("DOMContentLoaded", createTable);
+document.addEventListener('click', click);

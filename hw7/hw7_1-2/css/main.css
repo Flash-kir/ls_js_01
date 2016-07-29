@@ -1,44 +1,62 @@
-body, html {
-    height: 100%;
-    width: 100%;
+body {
+    background-color: darkgrey;
 }
 
-.button {
-    display: inline-block;
-    border-radius: 10px;
-    padding: 10px;
-    box-shadow: 1px 1px 3px #000;
-    color: yellow;
-    background-color: blue;
+.form {
+    margin-bottom: 5px;
 }
 
-.button:hover {
-    color: green;
-    background-color: #ff9a25;
+input {
+    padding: 5px;
+    outline: none;
+    /*border: none;*/
+    border: 1px solid darkblue;
+    border-radius: 5px;
+    /*box-shadow: 1px 1px 2px black;*/
 }
 
-.blocks {
-    height: 100%;
-    width: 100%;
+.btn-add {
+    outline: none;
+    padding: 5px;
+    background-color: black;
+    color: greenyellow;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 1px 1px 2px black;
 }
 
-.blk__btn-rm {
+.btn-add:hover {
+    background-color: greenyellow;
+    color: black;
+}
+
+.table {
+    /*width: 100%; !* Ширина таблицы *!*/
+    background: darkgrey; /* Цвет фона таблицы */
+    color: greenyellow; /* Цвет текста */
+    border-spacing: 1px; /* Расстояние между ячейками */
+}
+
+td, th {
+    background: black;
+    padding: 5px;
+    position: relative;
+}
+
+.btn-rm {
     background-color: #fff;
     border: 1px solid #000;
-    line-height: 4px;
-    font-size:10px;
+    line-height: 8px;
+    font-size: 21px;
     padding: 2px;
-    width: 5px;
-    height: 5px;
+    width: 10px;
+    height: 12px;
     position: absolute;
-    left: 3px;
-    top: 3px;
+    left: 5px;
+    top: 5px;
+    color: #000;
 }
 
-.blk__btn-rm:hover {
+.btn-rm:hover {
     cursor: pointer;
-}
-
-.blk {
-    cursor: move;
 }
