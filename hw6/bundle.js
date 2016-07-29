@@ -73,7 +73,7 @@
 	    let ul_el = document.getElementById("sList");
 	    ul_el.innerHTML = "";
 	    for (let i = 0; i < towns.length; i++) {
-	      if (towns[i].toLowerCase().indexOf(search.value.toLowerCase()) > 0) {
+	      if (towns[i].toLowerCase().indexOf(search.value.toLowerCase()) >= 0) {
 	        let li_el = document.createElement("LI");
 	        li_el.textContent = towns[i];
 	        ul_el.appendChild(li_el);
