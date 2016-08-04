@@ -98,6 +98,8 @@
 
 	'use strict';
 
+	let towns;
+
 	function timer(delay) {
 	  return new Promise(function (resolve, reject) {
 	    setTimeout(() => {
@@ -108,6 +110,7 @@
 
 	function ajaxGet(url) {
 	  return new Promise(function (resolve, reject) {
+	    if (towns) return resolve(towns);
 	    let xhr = new XMLHttpRequest();
 	    xhr.open('GET', url, true);
 

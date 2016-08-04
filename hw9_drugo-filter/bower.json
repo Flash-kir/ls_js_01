@@ -1,0 +1,23 @@
+{
+  "name": "ls_hw_vk_api",
+  "description": "loftschool VK_API",
+  "main": "index.js",
+  "authors": [
+    "flash-kir"
+  ],
+  "license": "ISC",
+  "keywords": [
+    "VK_API"
+  ],
+  "homepage": "pub/",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+  }
+}
