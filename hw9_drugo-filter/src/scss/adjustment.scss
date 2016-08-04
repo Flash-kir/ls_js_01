@@ -5,7 +5,7 @@
 html {
     height: 100%;
     width: 100%;
-    font-size: 15px;
+    font-size: 12px;
 }
 
 body {
@@ -13,9 +13,9 @@ body {
     width: 100%;
     font-family: Arial, sans-serif;
     font-weight: 100;
-    line-height: 1.42;
+    line-height: 1;
     --webkit-font-smoothing: antialiased;
-    background-color: #fff;
+    background-color: $dark_grey;
 }
 
 h2 {
@@ -28,7 +28,7 @@ h2 {
     min-height: 100%;
 }
 
-.container{
+.panel{
     max-width: $width;
     margin-left: auto;
     margin-right:auto;
