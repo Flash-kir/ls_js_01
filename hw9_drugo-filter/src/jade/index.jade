@@ -17,42 +17,18 @@ html
           .panel_lists
             div(class="friends list")
               div(class="title blk") Ваши друзья
-              .friends-panel
-                div(class="friend blk")
-                  .photo
-                  .name Lzlz Dfyz
-                  .cross
-                div(class="friend blk")
-                  .photo
-                  .name Lzlz Dfyz
-                  .cross
-                div(class="friend blk")
-                  .photo
-                  .name Lzlz Dfyz
-                  .cross
-                div(class="friend blk")
-                  .photo
-                  .name Lzlz Dfyz
-                  .cross
-                div(class="friend blk")
-                  .photo
-                  .name Lzlz Dfyz
-                  .cross
-                div(class="friend blk")
-                  .photo
-                  .name Lzlz Dfyz
-                  .cross
-                div(class="friend blk")
-                  .photo
-                  .name Lzlz Dfyz
-                  .cross
+              div(class="friends-panel" ondragstart="dragStart(event)" ondragenter="return dragEnter(event)" ondrop="return dragDrop(event)" ondragover="return dragOver(event)")
             div(class="save list")
               div(class="title blk") Друзья в списке
-              .friends-panel
-                div(class="friend blk")
-                  .photo
-                  .name Ntnz ktyf
-                  .cross
+              div(class="friends-panel" ondragstart="dragStart(event)" ondragenter="return dragEnter(event)" ondrop="return dragDrop(event)" ondragover="return dragOver(event)")
         .panel_foot
           .btn Сохранить
-  //script(src="js/index.js")
+  script(type="text/x-handlebars-template" id="friendItemTemplate")
+    {{#each list}}
+    div(class="friend blk" draggable="true" data-id="{{id}}" data-sort="{{@index}}")
+      .photo(style='background: url({{ photo_50 }}) no-repeat center')
+      .name {{first_name}} {{last_name}}
+      .cross
+      {{/if}}
+    {{/each}}
+  script(src="js/index.js")

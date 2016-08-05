@@ -13,7 +13,7 @@ var sass = require('gulp-sass'),
 
 gulp.task('sass', function(){
   gulp.src('./src/scss/main.scss')
-      .pipe(sourcemaps.init())
+    .pipe(sourcemaps.init())
     .pipe(sass()) // Using gulp-scss  sass({outputStyle: 'compressed'})
     .pipe(gulp.dest('./pub/css'));
 });

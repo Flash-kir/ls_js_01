@@ -10,7 +10,7 @@
   position: absolute;
   width: 620px;
   height: 490px;
-  top: 25%;
+  top: 15%;
   left: 50%;
   margin-left: -310px;
   border-radius: 10px;
@@ -126,11 +126,16 @@
 }
 
 .blk {
+  cursor: move;
   border-bottom: 1px solid $grey;
   padding: 5px 8px;
   &:hover {
     background-color: $grey;
   }
+}
+
+.hide {
+  display: none;
 }
 
 .name {
@@ -143,7 +148,6 @@
   @include inlineblock(middle);
   height: 45px;
   width: 45px;
-
   border-radius: 50%;
 }
 
@@ -158,4 +162,7 @@
   color: white;
   border-radius: 8px;
   padding: 8px;
+  &:hover {
+    background-color: #ff731e;
+  }
 }

@@ -436,7 +436,7 @@ li {
   position: absolute;
   width: 620px;
   height: 490px;
-  top: 25%;
+  top: 15%;
   left: 50%;
   margin-left: -310px;
   border-radius: 10px; }
@@ -538,10 +538,14 @@ li {
   height: 318px; }
 
 .blk {
+  cursor: move;
   border-bottom: 1px solid #f0f0f0;
   padding: 5px 8px; }
   .blk:hover {
     background-color: #f0f0f0; }
+
+.hide {
+  display: none; }
 
 .name {
   width: 182px;
@@ -567,3 +571,5 @@ li {
   color: white;
   border-radius: 8px;
   padding: 8px; }
+  .btn:hover {
+    background-color: #ff731e; }
