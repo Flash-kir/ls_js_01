@@ -20,22 +20,32 @@ var Controller = {
         });
     },
     photosRoute: function() {
-        return Model.getPhotos().then(function(photos) {
-            for (let i = 0; i < photos.items.length; i++) {
-                let photo = photos.items[i];
-                Model.getComments(photo.id).then(function(comments) {
+        return Model.getPhotos().then(
+            function(photos) {
+
+            Promise.all(photos.items.map((current, index, array)=>{
+                return new Promise(function (resolve, reject) {
+                    Model.getComments(array[index].id).then(function (comments) {
+                        let photo = array[index];
                         for (let i = 0; i < comments.items.length; i++) {
                             let comment = comments.items[i];
                             if (!photo.comment) {
                                 photo.comment = [];
                             }
-                            photo.comment[photo.comment.length] = {date: comment.date, user: comment.from_id, text: comment.text};
+                            console.log(photo.comment.length);
+                            photo.comment[photo.comment.length] = {
+                                date: comment.date,
+                                user: comment.from_id,
+                                text: comment.text
+                            };
                         }
-                        console.log(photo.comment);
-                    }
-                );
-            }
-            results.innerHTML = View.render('photos', {list: photos.items});
+                        resolve(photo);
+                    })
+                })
+            })).then(photos=> {
+                console.log(photos);
+                results.innerHTML = View.render('photos', {list: photos})
+            });
         });
     }
 };

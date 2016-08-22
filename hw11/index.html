@@ -77,19 +77,23 @@
             <div class="friend">
                 <img src="{{photo_130}}" class="img-groups">
                 <div>
-                    likes: {{likes.count}}</br>
-                    reposts: {{reposts.count}}</br>
-                    comments: {{comments.count}}</br>
+                    likes: {{this.likes.count}}</br>
+                    reposts: {{this.reposts.count}}</br>
+                    comments: {{this.comments.count}}</br>
                 </div>
             </div>
             <div class="friend">
-                {{#each ./comment}}
-                <div>
-                    inner text
-                   {{user}} {{date}}</br>{{text}}
-                </div>
-                {{/each comment}}
-            </div>
+                {{#if this.comment}}
+                    {{#each comment}}
+                    <div>
+                        <p>{{this.date}}</p>
+                        <p>{{this.text}}</p>
+                    </div>
+                    {{/each}}
+                {{else}}
+                    <p>not comments yet</p>
+                {{/if}}
+              </div>
         </div>
         {{/each}}
     </div>
