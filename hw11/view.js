@@ -5,7 +5,6 @@ var View = {
         var templateElement = document.getElementById(templateName),
             templateSource = templateElement.innerHTML,
             renderFn = Handlebars.compile(templateSource);
-console.log(renderFn(model));
         return renderFn(model);
     }
 };

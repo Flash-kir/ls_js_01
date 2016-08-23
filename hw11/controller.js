@@ -26,16 +26,23 @@ var Controller = {
             Promise.all(photos.items.map((current, index, array)=>{
                 return new Promise(function (resolve, reject) {
                     Model.getComments(array[index].id).then(function (comments) {
-                        let photo = array[index];
+                        let photo = array[index],
+                            user = {};
+                        for (let i = 0; i < comments.profiles.length; i++) {
+                            let profile = comments.profiles[i];
+                            user[profile.id] = {
+                                photo_100: profile.photo_100,
+                                name: [profile.first_name, profile.last_name].join(" "),
+                            }
+                        }
                         for (let i = 0; i < comments.items.length; i++) {
                             let comment = comments.items[i];
                             if (!photo.comment) {
                                 photo.comment = [];
                             }
-                            console.log(photo.comment.length);
                             photo.comment[photo.comment.length] = {
                                 date: comment.date,
-                                user: comment.from_id,
+                                user: user[comment.from_id],
                                 text: comment.text
                             };
                         }
@@ -43,7 +50,6 @@ var Controller = {
                     })
                 })
             })).then(photos=> {
-                console.log(photos);
                 results.innerHTML = View.render('photos', {list: photos})
             });
         });

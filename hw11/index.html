@@ -12,10 +12,30 @@
             float: left;
             margin: 15px;
         }
+        .photo {
+            float: left;
+            margin: 15px; width: 45%;
+        }
+        .small {
+            max-width: 60px;
+            max-height: 60px;
+        }
         .img-groups {
             border-radius: 10px;
-            max-width: 100px;
-            max-height: 100px;
+            max-width: 400px;
+            max-height: 400px;
+        }
+        .comment-blk{
+            margin-bottom: 10px;
+            border-radius: 30px;
+        }
+        .comment-blk:nth-child(odd){
+            background-color: #eeeeee;
+        }
+        .comment-blk:after {
+            content: "";
+            display: block;
+            clear: both;
         }
     </style>
 </head>
@@ -74,24 +94,29 @@
     <div id="photosList">
         {{#each list}}
         <div class="row">
-            <div class="friend">
-                <img src="{{photo_130}}" class="img-groups">
+            <div class="photo" style="text-align: center">
+                <img src="{{photo_604}}" class="img-groups">
                 <div>
-                    likes: {{this.likes.count}}</br>
-                    reposts: {{this.reposts.count}}</br>
-                    comments: {{this.comments.count}}</br>
+                    likes: {{this.likes.count}}
+                    reposts: {{this.reposts.count}}
+                    comments: {{this.comments.count}}
                 </div>
             </div>
-            <div class="friend">
-                {{#if this.comment}}
+            <div class="photo">
+                {{#if comment}}
                     {{#each comment}}
-                    <div>
-                        <p>{{this.date}}</p>
-                        <p>{{this.text}}</p>
+                    <div class="comment-blk">
+                        <div style="float: left; width: 30%">
+                            <img src="{{user.photo_100}}" class="img-circle small">
+                        </div>
+                        <div style="float: left; width: 70%">
+                            <p>{{user.name}} ({{formatDate this.date}})</p>
+                            <p>{{text}}</p>
+                        </div>
                     </div>
                     {{/each}}
                 {{else}}
-                    <p>not comments yet</p>
+                    <p>К этому фото нет комментариев</p>
                 {{/if}}
               </div>
         </div>
