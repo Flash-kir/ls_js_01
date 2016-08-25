@@ -19,15 +19,16 @@
         .small {
             max-width: 60px;
             max-height: 60px;
+            margin: 5px;
         }
         .img-groups {
             border-radius: 10px;
-            max-width: 400px;
-            max-height: 400px;
+            max-width: 100%;
+            max-height: 100%;
         }
         .comment-blk{
             margin-bottom: 10px;
-            border-radius: 30px;
+            border-radius: 34px;
         }
         .comment-blk:nth-child(odd){
             background-color: #eeeeee;
@@ -59,6 +60,7 @@
 <script src="controller.js"></script>
 <script src="router.js"></script>
 <script src="entry.js"></script>
+<script src="sort.js"></script>
 
 <script type="text/x-handlebars-template" id="headerTemplate">
     <h1>Данные из VK-аккаунта: {{first_name}} {{last_name}}</h1>
@@ -92,33 +94,46 @@
 
 <script type="text/x-handlebars-template" id="photosTemplate">
     <div id="photosList">
-        {{#each list}}
-        <div class="row">
-            <div class="photo" style="text-align: center">
-                <img src="{{photo_604}}" class="img-groups">
-                <div>
-                    likes: {{this.likes.count}}
-                    reposts: {{this.reposts.count}}
-                    comments: {{this.comments.count}}
-                </div>
+        {{#each this}}
+        <div class="album" id={{id}}>
+            <h2>{{title}}</h2>
+            <p>Сортировать по колличеству:</p>
+            <div class="btn-group">
+                <!-- -by-order-alt-->
+                <button type="button" class="btn btn-default btn-likes" onclick="sort('likes', {{id}});">Лайки <span class="glyphicon glyphicon-sort"></span></button>
+                <button type="button" class="btn btn-default btn-reposts" onclick="sort('reposts', {{id}});">Репосты <span class="glyphicon glyphicon-sort"></span></button>
+                <button type="button" class="btn btn-default btn-comments" onclick="sort('comments', {{id}});">Комментарии <span class="glyphicon glyphicon-sort"></span></button>
+                <button type="button" class="btn btn-default btn-dates" onclick="sort('dates', {{id}});">Дата размещения <span class="glyphicon glyphicon-sort"></span></button>
             </div>
-            <div class="photo">
-                {{#if comment}}
-                    {{#each comment}}
-                    <div class="comment-blk">
-                        <div style="float: left; width: 30%">
-                            <img src="{{user.photo_100}}" class="img-circle small">
-                        </div>
-                        <div style="float: left; width: 70%">
-                            <p>{{user.name}} ({{formatDate this.date}})</p>
-                            <p>{{text}}</p>
-                        </div>
+            {{#each items}}
+            <div class="row">
+                <div class="photo dates" data-dates="{{@index}}" style="text-align: center">
+                    <img src="{{photo_604}}" class="img-groups">
+                    <div>
+                        <span class="badge"><span class="glyphicon glyphicon-heart likes" data-likes="{{this.likes.count}}"></span> {{this.likes.count}}</span>
+                        <span class="badge"><span class="glyphicon glyphicon-share reposts" data-reposts="{{this.reposts.count}}"></span> {{this.reposts.count}}</span>
+                        <span class="badge"><span class="glyphicon glyphicon-edit comments" data-comments="{{this.comments.count}}"></span> {{this.comments.count}}</span>
                     </div>
-                    {{/each}}
-                {{else}}
-                    <p>К этому фото нет комментариев</p>
-                {{/if}}
-              </div>
+                </div>
+                <div class="photo">
+                    {{#if comment}}
+                        {{#each comment}}
+                        <div class="comment-blk">
+                            <div style="float: left; width: 30%">
+                                <img src="{{user.photo_100}}" class="img-circle small">
+                            </div>
+                            <div style="float: left; width: 70%">
+                                <p>{{user.name}} ({{formatDate this.date}})</p>
+                                <p>{{text}}</p>
+                            </div>
+                        </div>
+                        {{/each}}
+                    {{else}}
+                        <p>К этому фото нет комментариев</p>
+                    {{/if}}
+                  </div>
+            </div>
+            {{/each}}
         </div>
         {{/each}}
     </div>
