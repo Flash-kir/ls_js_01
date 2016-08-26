@@ -41,7 +41,6 @@ Calculator.prototype.mul = function () {
     return res;
   };
 
-
 function SqrCalc(firstNumber) {
   Calculator.call(this, firstNumber);
 }
@@ -50,17 +49,17 @@ SqrCalc.prototype.sqr = function sqr(a) {
   return a * a;
 };
 
-SqrCalc.prototype.sum = function (arg) {
-  return this.sqr( Calculator.prototype.sum.call(this, arg ) );
+SqrCalc.prototype.sum = function () {
+  return this.sqr( Calculator.prototype.sum.call(this, arguments ) );
 };
-SqrCalc.prototype.div = function (arg) {
-  return this.sqr( Calculator.prototype.div.call(this, arg ) );
+SqrCalc.prototype.div = function () {
+  return this.sqr( Calculator.prototype.div.call(this, arguments ) );
 };
-SqrCalc.prototype.dif = function (arg) {
-  return this.sqr( Calculator.prototype.dif.call(this, arg ) );
+SqrCalc.prototype.dif = function () {
+  return this.sqr( Calculator.prototype.dif.call(this, arguments ) );
 };
-SqrCalc.prototype.mul = function (arg) {
-  return this.sqr( Calculator.prototype.mul.call(this, arg ) );
+SqrCalc.prototype.mul = function () {
+  return this.sqr( Calculator.prototype.mul.call(this, arguments ) );
 };
 
 

@@ -45,23 +45,21 @@ class Calculator {
 class SqrCalc extends Calculator {
   constructor(firstNumber) {
     super(firstNumber);
-
-    this.sqr = function sqr(a) {
-      return a * a;
-    }
   };
-
-	sum (arg) {
-		return this.sqr( super.sum(arg) );
+  sqr = function sqr(a) {
+    return a * a;
   };
-  div (arg) {
-  	return this.sqr( super.div(arg) );
+  sum () {
+    return this.sqr( super.sum(arguments) );
   };
-	dif (arg) {
-  	return this.sqr( super.dif(arg) );
+  div () {
+  	return this.sqr( super.div(arguments) );
   };
-	mul (arg) {
-  	return this.sqr( super.mul(arg) );
+  dif () {
+  	return this.sqr( super.dif(arguments) );
+  };
+  mul () {
+  	return this.sqr( super.mul(arguments) );
   }
 }
 
