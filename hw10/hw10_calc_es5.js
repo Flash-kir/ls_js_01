@@ -50,16 +50,16 @@ SqrCalc.prototype.sqr = function sqr(a) {
 };
 
 SqrCalc.prototype.sum = function () {
-  return this.sqr( Calculator.prototype.sum.call(this, arguments ) );
+  return this.sqr( Calculator.prototype.sum.call(this, ...arguments ) );
 };
 SqrCalc.prototype.div = function () {
-  return this.sqr( Calculator.prototype.div.call(this, arguments ) );
+  return this.sqr( Calculator.prototype.div.call(this, ...arguments ) );
 };
 SqrCalc.prototype.dif = function () {
-  return this.sqr( Calculator.prototype.dif.call(this, arguments ) );
+  return this.sqr( Calculator.prototype.dif.call(this, ...arguments ) );
 };
 SqrCalc.prototype.mul = function () {
-  return this.sqr( Calculator.prototype.mul.call(this, arguments ) );
+  return this.sqr( Calculator.prototype.mul.call(this, ...arguments ) );
 };
 
 

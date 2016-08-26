@@ -50,16 +50,16 @@ class SqrCalc extends Calculator {
     return a * a;
   };
   sum () {
-    return this.sqr( super.sum(arguments) );
+    return this.sqr( super.sum(...arguments) );
   };
   div () {
-  	return this.sqr( super.div(arguments) );
+  	return this.sqr( super.div(...arguments) );
   };
   dif () {
-  	return this.sqr( super.dif(arguments) );
+  	return this.sqr( super.dif(...arguments) );
   };
   mul () {
-  	return this.sqr( super.mul(arguments) );
+  	return this.sqr( super.mul(...arguments) );
   }
 }
 
