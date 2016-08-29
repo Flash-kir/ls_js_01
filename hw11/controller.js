@@ -20,7 +20,7 @@ var Controller = {
         });
     },
     photosRoute: function() {
-        let step_a, step_p = [], step_c, progress = 0;
+        let step_a, step_p = [], progress = 0;
         results.innerHTML = '<div class="progress">' +
                               '<div id="bar" class="progress-bar" role="progressbar" aria-valuenow="0"' +
                                   'aria-valuemin="0" aria-valuemax="100" style="width:0%">' +
