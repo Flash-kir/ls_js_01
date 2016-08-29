@@ -118,12 +118,12 @@
                 <div class="photo">
                     {{#if comment}}
                         {{#each comment}}
-                        <div class="comment-blk">
+                        <div class="comment-blk" data-user="{{from_id}}">
                             <div style="float: left; width: 30%">
-                                <img src="{{user.photo_100}}" class="img-circle small">
+                                <img src="https://vk.com/images/camera_400.png" class="img-circle small">
                             </div>
                             <div style="float: left; width: 70%">
-                                <p>{{user.name}} ({{formatDate this.date}})</p>
+                                <span class="user-name">Подгружается имя...</span><span> ({{formatDate this.date}})</span>
                                 <p>{{text}}</p>
                             </div>
                         </div>

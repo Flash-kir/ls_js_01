@@ -31,8 +31,8 @@ var lastcall_time = new Date().getTime(),
             });
         });
     },
-    getUser: function() {
-        return this.callApi('users.get', {});
+    getUser: function(uid = '', fields = '') {
+        return this.callApi('users.get', {user_ids: uid, fields: fields, v:"5.53"});
     },
     getMusic: function() {
         return this.callApi('audio.get', {});
@@ -46,12 +46,12 @@ var lastcall_time = new Date().getTime(),
     getGroups: function() {
         return this.callApi('groups.get', {extended: 1, v:"5.53"});
     },
-    getPhotos: function(album_id) {
-        return this.callApi('photos.get', {extended: 1, album_id: album_id, v:"5.53"});
+    getPhotos: function() {
+        return this.callApi('photos.getAll', {extended: 1, skip_hidden: 1, v:"5.53"});
     },
-    getComments: function(photo_id) {
+    getComments: function() {
         // debugger;
-        return this.callApi('photos.getComments', {extended: 1, photo_id: photo_id, fields: 'photo_100', album_id: "profile", v:"5.53"});
+        return this.callApi('photos.getAllComments', {extended: 1, v:"5.53"});
     },
     getPhotoAlbums: function() {
         return this.callApi('photos.getAlbums', {need_system: 1, v:"5.53"});
