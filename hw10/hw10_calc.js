@@ -46,7 +46,7 @@ class SqrCalc extends Calculator {
   constructor(firstNumber) {
     super(firstNumber);
   };
-  sqr = function sqr(a) {
+  sqr (a) {
     return a * a;
   };
   sum () {
