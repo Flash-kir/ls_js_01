@@ -1,6 +1,7 @@
 'use strict';
 
 const fs = require('fs'), sizes = ["byte", "Kb", "Mb", "Gb", "Tb"];
+let resp = "";
 
 function tab_maker(tab, isDir) {
     if ( isDir ) {
@@ -18,35 +19,39 @@ function sizeMaker(size, depth) {
     }
 }
 
-function tree(path, tab, first) {
-    if (first) {
+function tree(path, tab, no_first) {
+    if (!no_first) {
+        tab = "|";
         console.log( fs.realpathSync(path) );
+        resp = "<h3>" + fs.realpathSync(path) + "</h3>";
     }
-    let root = fs.readdirSync(path),
-        len = path.length;
-    // tab = tab + len;
+    let root = fs.readdirSync(path);
     for (let i = 0; i < root.length; i++) {
         let file = root[i], stat, f_size = 0; 
         stat = fs.statSync(path + file);
         f_size = stat.size;
         if ( stat.isDirectory() ) {
             if (i == root.length - 1) {
+                resp += "<p>" + tab_maker(tab.substring(0, tab.length - 1) + "`", 1) + " " + file + "</p>";
                 console.log( tab_maker(tab.substring(0, tab.length - 1) + "`", 1), file);
-                tree(path + file + "/", tab.substring(0, tab.length - 1) + "    |", 0)
+                tree(path + file + "/", tab.substring(0, tab.length - 1) + "    |", 1)
             } else {
+                resp += "<p>" + tab_maker(tab, 1) + " " + file + "</p>";
                 console.log( tab_maker(tab, 1), file);
-                tree(path + file + "/", tab + "   |", 0)
+                tree(path + file + "/", tab + "   |", 1)
             }
         } else {
             if (i == root.length - 1) {
+                resp += "<p>" + tab_maker(tab.substring(0, tab.length - 1) + "`", 0) + " " + file + sizeMaker(f_size, 0) + "</p>";
                 console.log( tab_maker(tab.substring(0, tab.length - 1) + "`", 0), file, sizeMaker(f_size, 0) );
             } else {
+                resp += "<p>" + tab_maker(tab, 0) + " " + file + sizeMaker(f_size, 0) + "</p>";
                 console.log( tab_maker(tab, 0), file, sizeMaker(f_size, 0) );
             }
         }
-        // console.log( tab_maker(tab), file);    
-    }    
+    }  
+    return resp;
 }
 
-tree('./../hw5/', "|", 1);
-// console.log(root);
+// console.log( tree('./../hw5/') );
+module.exports = tree;
