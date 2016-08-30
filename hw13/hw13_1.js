@@ -27,25 +27,25 @@ function tree(path, tab, no_first) {
     }
     let root = fs.readdirSync(path);
     for (let i = 0; i < root.length; i++) {
-        let file = root[i], stat, f_size = 0; 
-        stat = fs.statSync(path + file);
+        let file = root[i], stat, f_size = 0, f_path = path + file; 
+        stat = fs.statSync(f_path);
         f_size = stat.size;
         if ( stat.isDirectory() ) {
             if (i == root.length - 1) {
-                resp += "<p>" + tab_maker(tab.substring(0, tab.length - 1) + "`", 1) + " " + file + "</p>";
+                resp += "<p>" + tab_maker(tab.substring(0, tab.length - 1) + "`", 1) + " <a href=" + f_path + ">" + file + "</a>" + "</p>";
                 console.log( tab_maker(tab.substring(0, tab.length - 1) + "`", 1), file);
                 tree(path + file + "/", tab.substring(0, tab.length - 1) + "    |", 1)
             } else {
-                resp += "<p>" + tab_maker(tab, 1) + " " + file + "</p>";
+                resp += "<p>" + tab_maker(tab, 1) + " <a href=" + f_path + ">" + file + "</a>" + "</p>";
                 console.log( tab_maker(tab, 1), file);
                 tree(path + file + "/", tab + "   |", 1)
             }
         } else {
             if (i == root.length - 1) {
-                resp += "<p>" + tab_maker(tab.substring(0, tab.length - 1) + "`", 0) + " " + file + sizeMaker(f_size, 0) + "</p>";
+                resp += "<p>" + tab_maker(tab.substring(0, tab.length - 1) + "`", 0) + " <a href=" + f_path + ">" + file + "</a>" + sizeMaker(f_size, 0) + "</a>";
                 console.log( tab_maker(tab.substring(0, tab.length - 1) + "`", 0), file, sizeMaker(f_size, 0) );
             } else {
-                resp += "<p>" + tab_maker(tab, 0) + " " + file + sizeMaker(f_size, 0) + "</p>";
+                resp += "<p>" + tab_maker(tab, 0) + " <a href=" + f_path + ">" + file + "</a>" + sizeMaker(f_size, 0) + "</p>";
                 console.log( tab_maker(tab, 0), file, sizeMaker(f_size, 0) );
             }
         }

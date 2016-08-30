@@ -9,7 +9,7 @@ http.createServer(function (req, res) {
             res.setHeader('Content-Type', 'text/html');
             res.write( tree(file_name) );
         } else {
-            let content = fs.readFileSync(file_name);
+            let content = fs.readFileSync(file_name, 'utf8');
             res.write( content );
         }
     } else {
