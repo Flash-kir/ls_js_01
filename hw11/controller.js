@@ -41,12 +41,12 @@ var Controller = {
             return albums_dict;
         });
 
-        let promise_photos = Model.getPhotos().then(function(photos) {
+        let promise_photos = Model.getPhotos(0).then(function(photos) {
             stepUp(20);
             return photos;
         });
 
-        let promise_comments = Model.getComments().then(function(comments) {
+        let promise_comments = Model.getComments(0).then(function(comments) {
             return comments.items.map(function (comment) {
                 stepUp(14/comments.items.length);
                 return comment;
