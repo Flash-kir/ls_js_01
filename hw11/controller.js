@@ -35,7 +35,7 @@ var Controller = {
                 albums_dict[album.id] = {id: album.id,title: album.title, items: [], count: album.size};
                 count += album.size;
                 progress += step;
-                if (progress > 99) {
+                if (progress > 199) {
                     color = "background-color: green; color: white";
                 }
                 bar_albums.style = "width:" + progress + "px;" + color;
@@ -45,7 +45,11 @@ var Controller = {
             document.getElementById("results").innerHTML = View.render('albums', resp[0] );
             return resp;
         }).then(resp => {
-            let promise_list = [];
+            let promise_list = [],
+                step = 200/resp[1],
+                progress = 0,
+                color = "";
+
             for (let i = 0; i < Object.keys( resp[0] ).length ; i++) {
                 promise_list.push(
                     Model.getPhotos(Object.keys( resp[0] )[i], 0).then(function(photos) {
@@ -54,15 +58,17 @@ var Controller = {
                 );
             }
             Promise.all(promise_list).then(resp => {
-                let count = 0, photo_list = [],
-                    step = 200/resp[1],
-                    progress = 0,
-                    color = "";
+                let count = 0, photo_list = [];
                 for (let i = 0; i < resp.length; i++) {
                     for (let j = 0; j < resp[i].length; j++) {
                         let photo = resp[i][j], el = document.createElement('DIV');
                         el.classList = ['row'];
                         el.innerHTML = View.render('photos', photo);
+                        progress += step;
+                        if (progress > 190) {
+                            color = "background-color: green; color: white";
+                        }
+                        bar_photos.style = "width:" + progress + "px;" + color;
                         document.getElementById(photo.album_id).appendChild( el );
                         if ( photo['comments'] ) {
                             if (photo.comments.count > 0) {
@@ -70,11 +76,6 @@ var Controller = {
                                 count += photo.comments.count;
                             }
                         }
-                        progress += step;
-                        if (progress > 99) {
-                            color = "background-color: green; color: white";
-                        }
-                        bar_photos.style = "width:" + progress + "px;" + color;
                     }
                 }
                 return [photo_list, count];
@@ -102,10 +103,10 @@ var Controller = {
                             comment_el.innerHTML = View.render('comments', comment);
                             photo_el.appendChild(comment_el);
                             progress += step;
-                            if (progress > 99) {
+                            if (progress > 190) {
                                 color = "background-color: green; color: white";
                             }
-                            bar_photos.style = "width:" + progress + "px;" + color;
+                            bar_comments.style = "width:" + progress + "px;" + color;
                         }
                     })
                 }
