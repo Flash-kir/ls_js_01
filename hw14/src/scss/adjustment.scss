@@ -1,0 +1,44 @@
+* {
+    box-sizing: border-box;
+}
+
+html {
+    height: 100%;
+    width: 100%;
+    font-size: 12px;
+}
+
+body {
+    height: 100%;
+    width: 100%;
+    font-family: Arial, sans-serif;
+    font-weight: 100;
+    line-height: 1;
+    --webkit-font-smoothing: antialiased;
+    background-color: white;
+}
+
+h2 {
+    margin: 0;
+    padding: 0;
+}
+
+.wrapper {
+    min-width: $width;
+    min-height: 100%;
+}
+
+.panel{
+    max-width: $width;
+    margin-left: auto;
+    margin-right:auto;
+}
+
+ul {
+    padding: 0;
+    margin: 0;
+}
+
+li {
+    list-style: none;
+}

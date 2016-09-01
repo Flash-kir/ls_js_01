@@ -1,0 +1,23 @@
+{
+  "name": "ls_hw_chat",
+  "description": "loftschool chat",
+  "main": "index.js",
+  "authors": [
+    "flash-kir"
+  ],
+  "license": "ISC",
+  "keywords": [
+    "chat"
+  ],
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+  }
+}

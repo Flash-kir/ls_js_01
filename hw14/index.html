@@ -1,0 +1,32 @@
+
+<html>
+  <head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=1100"/>
+    <title>chat</title>
+    <link href="css/main.css" rel="stylesheet"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.min.js"></script>
+  </head>
+  <body>
+    <div class="wrapper">
+      <div class="users-panel"></div>
+      <div class="messages-panel">
+        <div id="subscribe" class="messages"></div>
+        <form id="publish">
+          <textarea id="text" placeholder="Сообщение" class="message"></textarea>
+          <div id="submit" class="btn">Отправить</div>
+        </form>
+      </div>
+    </div>
+  </body>
+  <script type="text/x-handlebars-template" id="messageTemplate">
+    <div style="background: url({{ photo }}) no-repeat center" class="photo"></div>
+    <div class="text-blk">
+      <div class="name">{{name}} ({{nick_name}}) написано: {{time}}</div>
+      <div class="text">{{text}}</div>
+    </div>
+    <!--.cross-->
+  </script>
+  <script src="js/index.js"></script>
+</html>

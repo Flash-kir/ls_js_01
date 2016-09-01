@@ -1,0 +1,127 @@
+.wrapper {
+  height: 100%;//768px
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  font-size: 0;
+}
+
+.users-panel {
+  font-size: 12px;
+  @include inlineblock();
+  width: 20%;
+  height: 100%;
+  background-color: $orange;
+}
+
+.messages-panel {
+  font-size: 12px;
+  @include inlineblock();
+  width: 80%;
+  height: 100%;
+  background-color: white;
+}
+
+.messages {
+  height: 90%;
+  overflow: scroll;
+}
+
+.text-blk {
+  margin-left: 10px;
+  width: 60%;
+  @include inlineblock();
+}
+
+#publish {
+  width: 100%;
+  height: 10%;
+  margin: 0;
+  padding: 0.25%;
+  font-size: 0;
+  .message {
+    font-size: 12px;
+    height: 100%;
+    border-bottom-left-radius: 8px;
+    border-top-left-radius: 8px;
+    outline: none;
+    border: 1px solid $grey;
+    width: 89%;
+  }
+}
+
+.btn {
+  font-size: 16px;
+  height: 100%;
+  width: 10%;
+  @include inlineblock();
+  background-color: $orange;
+  color: white;
+  border-bottom-right-radius: 8px;
+  border-top-right-radius: 8px;
+  padding: 10px;
+  &:hover {
+    background-color: #ff731e;
+  }
+}
+
+.message-blk {
+  width: 90%;
+  margin-left: 10px;
+  cursor: move;
+  border-radius: 30px;
+  border: 1px solid $grey;
+  padding: 10px;
+  margin-top: 10px;
+  &:hover {
+    background-color: $grey;
+  }
+}
+
+.name {
+  width: 50%;
+  margin-left: 7px;
+  @include inlineblock(middle);
+}
+
+.photo {
+  @include inlineblock(middle);
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+}
+
+::-webkit-scrollbar {
+  width: 3px;
+  height: 3px;
+}
+::-webkit-scrollbar-button {
+  width: 3px;
+  height: 3px;
+}
+::-webkit-scrollbar-thumb {
+  background: #c4c4c4;
+  border: 0 none #ffffff;
+  border-radius: 2px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #c4c4c4;
+}
+::-webkit-scrollbar-thumb:active {
+  background: #c4c4c4;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+  border: 0 none #ffffff;
+  border-radius: 2px;
+}
+::-webkit-scrollbar-track:hover {
+  background: transparent;
+}
+::-webkit-scrollbar-track:active {
+  background: transparent;
+}
+::-webkit-scrollbar-corner {
+  background: transparent;
+}

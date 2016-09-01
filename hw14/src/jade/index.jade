@@ -1,0 +1,19 @@
+
+html
+  head
+    include head
+  body
+    .wrapper
+      .users-panel
+      .messages-panel
+        .messages#subscribe
+        form(id="publish")
+          textarea(id="text" class="message" placeholder="Сообщение")
+          .btn#submit Отправить
+  script(type="text/x-handlebars-template" id="messageTemplate")
+    .photo(style='background: url({{ photo }}) no-repeat center')
+    .text-blk
+      .name {{name}} ({{nick_name}}) написано: {{time}}
+      .text {{text}}
+    //.cross
+  script(src="js/index.js")
