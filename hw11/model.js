@@ -46,12 +46,11 @@ var lastcall_time = new Date().getTime(),
     getGroups: function() {
         return this.callApi('groups.get', {extended: 1, v:"5.53"});
     },
-    getPhotos: function(offset = '') {
-        return this.callApi('photos.getAll', {extended: 1, count: 200, offset: offset, skip_hidden: 1, v:"5.53"});
+    getPhotos: function(album_id) {
+        return this.callApi('photos.get', {extended: 1, album_id: album_id, count: 1000, skip_hidden: 1, v:"5.53"});
     },
-    getComments: function(offset = '') {
-        // debugger;
-        return this.callApi('photos.getAllComments', {extended: 1, offset: offset, count: 100, v:"5.53"});
+    getComments: function(photo_id) {
+        return this.callApi('photos.getComments', {extended: 1, photo_id: photo_id, fields: "photo_50", count: 100, v:"5.53"});
     },
     getPhotoAlbums: function() {
         return this.callApi('photos.getAlbums', {need_system: 1, v:"5.53"});

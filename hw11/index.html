@@ -38,12 +38,44 @@
             display: block;
             clear: both;
         }
+        .progress {
+            display: none;
+            position: absolute;
+            height: 135px;
+            width: 220px;
+            right: 20px;
+            top: 20px;
+            padding: 0 10px 0;
+        }
+        .bar {
+            height: 20px;
+            width: 200px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        .progress-albums, .progress-photos, .progress-comments {
+            background-color: #e3e3e3;
+            width: 0;
+            padding-left: 5px;
+        }
     </style>
 </head>
 <body>
 <div class="container">
     <div id="header"></div>
-
+    <div class="progress">
+        <h4>Загрузка</h4>
+        <div class="albums-bar bar">
+            <div class="progress-albums">   Альбомы</div>
+        </div>
+        <div class="photos-bar bar">
+            <div class="progress-photos">   Фото</div>
+        </div>
+        <div class="comments-bar bar">
+            <div class="progress-comments">   Комментарии</div>
+        </div>
+    </div>
     <div class="btn-group btn-group-lg">
         <button type="button" class="btn btn-default" onclick="Router.handle('music')">Музыка</button>
         <button type="button" class="btn btn-default" onclick="Router.handle('friends')">Друзья</button>
@@ -92,50 +124,44 @@
     </div>
 </script>
 
-<script type="text/x-handlebars-template" id="photosTemplate">
-    <div id="photosList">
+<script type="text/x-handlebars-template" id="albumsTemplate">
+    <div id="albumsList">
         {{#each this}}
         <div class="album" id={{id}}>
             <h2>{{title}}</h2>
             <p>Сортировать по колличеству:</p>
             <div class="btn-group">
-                <!-- -by-order-alt-->
                 <button type="button" class="btn btn-default btn-likes" onclick="sort('likes', {{id}});">Лайки <span class="glyphicon glyphicon-sort"></span></button>
                 <button type="button" class="btn btn-default btn-reposts" onclick="sort('reposts', {{id}});">Репосты <span class="glyphicon glyphicon-sort"></span></button>
                 <button type="button" class="btn btn-default btn-comments" onclick="sort('comments', {{id}});">Комментарии <span class="glyphicon glyphicon-sort"></span></button>
                 <button type="button" class="btn btn-default btn-dates" onclick="sort('dates', {{id}});">Дата размещения <span class="glyphicon glyphicon-sort"></span></button>
             </div>
-            {{#each items}}
-            <div class="row">
-                <div class="photo dates" data-dates="{{date}}" style="text-align: center">
-                    <img src="{{photo_604}}" class="img-groups">
-                    <div>
-                        <span class="badge"><span class="glyphicon glyphicon-heart likes" data-likes="{{this.likes.count}}"></span> {{this.likes.count}}</span>
-                        <span class="badge"><span class="glyphicon glyphicon-share reposts" data-reposts="{{this.reposts.count}}"></span> {{this.reposts.count}}</span>
-                        <span class="badge"><span class="glyphicon glyphicon-edit comments" data-comments="{{this.comments.count}}"></span> {{this.comments.count}}</span>
-                    </div>
-                </div>
-                <div class="photo">
-                    {{#if comment}}
-                        {{#each comment}}
-                        <div class="comment-blk" data-user="{{from_id}}">
-                            <div style="float: left; width: 30%">
-                                <img src="https://vk.com/images/camera_400.png" class="img-circle small">
-                            </div>
-                            <div style="float: left; width: 70%">
-                                <span class="user-name">Подгружается имя...</span><span> ({{formatDate this.date}})</span>
-                                <p>{{text}}</p>
-                            </div>
-                        </div>
-                        {{/each}}
-                    {{else}}
-                        <p>К этому фото нет комментариев</p>
-                    {{/if}}
-                  </div>
-            </div>
-            {{/each}}
         </div>
         {{/each}}
+    </div>
+</script>
+
+<script type="text/x-handlebars-template" id="photosTemplate">
+    <div class="photo dates" data-dates="{{date}}" style="text-align: center">
+        <img src="{{photo_604}}" class="img-groups">
+        <div>
+            <span class="badge"><span class="glyphicon glyphicon-heart likes" data-likes="{{this.likes.count}}"></span> {{this.likes.count}}</span>
+            <span class="badge"><span class="glyphicon glyphicon-share reposts" data-reposts="{{this.reposts.count}}"></span> {{this.reposts.count}}</span>
+            <span class="badge"><span class="glyphicon glyphicon-edit comments" data-comments="{{this.comments.count}}"></span> {{this.comments.count}}</span>
+        </div>
+    </div>
+    <div class="photo comment" data-pid="{{id}}">
+        <p>К этому фото нет комментариев</p>
+    </div>
+</script>
+
+<script type="text/x-handlebars-template" id="commentsTemplate">
+    <div style="float: left; width: 30%">
+        <img src="{{this.user.photo}}" class="img-circle small">
+    </div>
+    <div style="float: left; width: 70%">
+        <span class="user-name">{{this.user.name}}</span><span> ({{formatDate this.date}})</span>
+        <p>{{text}}</p>
     </div>
 </script>
 
