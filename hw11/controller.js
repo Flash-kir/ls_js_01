@@ -87,18 +87,21 @@ var Controller = {
                                     photo = comment.pid,
                                     comment_el = document.createElement('DIV'),
                                     photo_el = document.querySelector('[data-pid="' + photo + '"]'),
+                                    count;
+                                if (photo_el) {
+                                    comment_el.classList = ['comment-blk'];
+                                    comment_el.dataset.user = comment.from_id;
+                                    if (users.indexOf(comment.from_id) == -1) {
+                                        users.push(comment.from_id);
+                                    }
+                                    comment_el.innerHTML = View.render('comments', comment);
+                                    if (photo_el.querySelector('.no-comments')) {
+                                        photo_el.innerHTML = '';
+                                    }
                                     count = photo_el.parentNode.querySelector('.comments-count');
-                                comment_el.classList = ['comment-blk'];
-                                comment_el.dataset.user = comment.from_id;
-                                if (users.indexOf(comment.from_id) == -1) {
-                                    users.push(comment.from_id);
+                                    photo_el.appendChild(comment_el);
+                                    count.innerHTML = parseInt( count.innerText ) + 1;
                                 }
-                                comment_el.innerHTML = View.render('comments', comment);
-                                if (photo_el.querySelector('.no-comments')) {
-                                    photo_el.innerHTML = '';
-                                }
-                                photo_el.appendChild(comment_el);
-                                count.innerHTML = parseInt( count.innerText ) + 1;
 
                                 progress += step;
                                 if (progress > 199) {
