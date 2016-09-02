@@ -98,6 +98,7 @@ var Controller = {
                                     if (photo_el.querySelector('.no-comments')) {
                                         photo_el.innerHTML = '';
                                     }
+                                    photo_el.parentNode.querySelector('.comments').dataset.comments += 1;
                                     count = photo_el.parentNode.querySelector('.comments-count');
                                     photo_el.appendChild(comment_el);
                                     count.innerHTML = parseInt( count.innerText ) + 1;
