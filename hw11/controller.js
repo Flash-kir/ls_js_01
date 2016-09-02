@@ -45,23 +45,18 @@ var Controller = {
             document.getElementById("results").innerHTML = View.render('albums', resp[0] );
             return resp;
         }).then(resp => {
-            let promise_list = [],
-                step = 200/resp[1],
+            let step = 200/resp[1],
                 progress = 0,
                 color = "";
 
             for (let i = 0; i < Object.keys( resp[0] ).length ; i++) {
-                promise_list.push(
                     Model.getPhotos(Object.keys( resp[0] )[i], 0).then(function(photos) {
                         return photos.items;
-                    })
-                );
-            }
-            Promise.all(promise_list).then(resp => {
+                    }).then(resp => {
+                        console.log(resp);
                 let count = 0, photo_list = [];
                 for (let i = 0; i < resp.length; i++) {
-                    for (let j = 0; j < resp[i].length; j++) {
-                        let photo = resp[i][j], el = document.createElement('DIV');
+                        let photo = resp[i], el = document.createElement('DIV');
                         el.classList = ['row'];
                         el.innerHTML = View.render('photos', photo);
                         progress += step;
@@ -76,9 +71,8 @@ var Controller = {
                                 count += photo.comments.count;
                             }
                         }
-                    }
                 }
-                return [photo_list, count];
+                return [resp , count, resp[1]];
             }).then(resp => {
                 let step = 200/resp[1],
                     progress = 0,
@@ -110,8 +104,9 @@ var Controller = {
                         }
                     })
                 }
-                setTimeout(bar.style.display = '', 2000)
+
             });
+            }
         });
     }
 };
