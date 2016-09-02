@@ -151,16 +151,16 @@
         </div>
     </div>
     <div class="photo comment" data-pid="{{id}}">
-        <p>К этому фото нет комментариев</p>
+        <p class="no-comments">К этому фото нет комментариев</p>
     </div>
 </script>
 
 <script type="text/x-handlebars-template" id="commentsTemplate">
     <div style="float: left; width: 30%">
-        <img src="{{this.user.photo}}" class="img-circle small">
+        <img src="https://vk.com/images/camera_400.png" class="img-circle small">
     </div>
     <div style="float: left; width: 70%">
-        <span class="user-name">{{this.user.name}}</span><span> ({{formatDate this.date}})</span>
+        <span class="user-name">Пользователь подгружается... </span><span> ({{formatDate this.date}})</span>
         <p>{{text}}</p>
     </div>
 </script>
