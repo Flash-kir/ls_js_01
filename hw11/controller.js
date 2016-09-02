@@ -86,7 +86,8 @@ var Controller = {
                                 let comment = comments[i][j],
                                     photo = comment.pid,
                                     comment_el = document.createElement('DIV'),
-                                    photo_el = document.querySelector('[data-pid="' + photo + '"]');
+                                    photo_el = document.querySelector('[data-pid="' + photo + '"]'),
+                                    count = photo_el.parentNode.querySelector('.comments-count');
                                 comment_el.classList = ['comment-blk'];
                                 comment_el.dataset.user = comment.from_id;
                                 if (users.indexOf(comment.from_id) == -1) {
@@ -97,6 +98,8 @@ var Controller = {
                                     photo_el.innerHTML = '';
                                 }
                                 photo_el.appendChild(comment_el);
+                                count.innerHTML = parseInt( count.innerText ) + 1;
+
                                 progress += step;
                                 if (progress > 199) {
                                     color = "background-color: green; color: white";
