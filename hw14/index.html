@@ -10,7 +10,34 @@
   </head>
   <body>
     <div class="wrapper">
-      <div class="users-panel"></div>
+      <div id="login" class="login-blk">
+        <div class="title">Авторизация</div>
+        <div class="fields">
+          <input placeholder="ФИО" class="user-name"/>
+          <input placeholder="Ник" class="user-nick"/>
+          <div id="login-btn" class="fields-btn">Войти</div>
+        </div>
+      </div>
+      <div id="load" class="load-blk">
+        <div class="title">Загрузка фото</div>
+        <div class="fields">
+          <div class="load-area">
+            <p>Перетащите сюда фото</p>
+          </div>
+        </div>
+        <div id="cancel-btn" class="fields-btn">Отменить</div>
+        <div id="load-btn" class="fields-btn">Загрузить</div>
+      </div>
+      <div class="users-panel">
+        <div id="user" class="user-blk">
+          <div class="photo"><img id="user-photo" src="https://vk.com/images/camera_50.png"/></div>
+          <div id="user-name" class="name">Добро пожаловать!</div>
+        </div>
+        <div id="user-list" class="user-list">
+          <div class="title">Участники (<span class="number">0</span>)</div>
+          <div class="list"></div>
+        </div>
+      </div>
       <div class="messages-panel">
         <div id="subscribe" class="messages"></div>
         <form id="publish">
@@ -21,12 +48,11 @@
     </div>
   </body>
   <script type="text/x-handlebars-template" id="messageTemplate">
-    <div style="background: url({{ photo }}) no-repeat center" class="photo"></div>
+    <div class="photo"><img src="{{ user_photo }}" data-photo="{{user_nick}}"/></div>
     <div class="text-blk">
-      <div class="name">{{name}} ({{nick_name}}) написано: {{time}}</div>
+      <div class="name">{{user_name}} ({{user_nick}}) написано: {{date}}</div>
       <div class="text">{{text}}</div>
     </div>
-    <!--.cross-->
   </script>
   <script src="js/index.js"></script>
 </html>

@@ -7,12 +7,117 @@
   font-size: 0;
 }
 
+.login-blk, .load-blk {
+  transition: top 1s ease-out .3s;
+  font-size: 12px;
+  position: absolute;
+  width: 300px;
+  height: 170px;
+  background-color: $grey;
+  border-radius: 8px;
+  left: 50%;
+  margin-left: -150px;
+  top: 0;
+  padding: 20px 10px;
+}
+
+.load-blk {
+  .fields {
+    height: 212px;
+    .load-area {
+      overflow: hidden;
+      color: $grey;
+      border: 2px dashed $grey;
+      height: 150px;
+      width: 150px;
+      border-radius: 8px;
+      margin-left: auto;
+      margin-right: auto;
+      margin-top: 23px;
+      text-align: center;
+      font-size: 20px;
+      p {
+        margin-top: 50px;
+      }
+      img {
+        width: 100%;
+        //height: 100%;
+      }
+    }
+  }
+  .fields-btn {
+    margin-left: 10px;
+    width: 100px;
+    float: right;
+  }
+  height: 300px;
+  top: -500px;
+}
+
+.fields {
+  text-align: right;
+  height: 125px;
+  margin-top: 5px;
+  background-color: white;
+  border-radius: 8px;
+  padding: 2.5%;
+  input {
+    margin-top: 12px;
+    width: 100%;
+    height: 25px;
+    border-radius: 12.5px;
+    border: 1px solid $grey;
+    outline: none;
+    padding-left: 10px;
+  }
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.fields-btn {
+  margin-top: 12px;
+  height: 25px;
+  width: 70px;
+  @include inlineblock();
+  background-color: $orange;
+  color: white;
+  border-radius: 5px;
+  padding: 7px 18px;
+  &:hover {
+    background-color: #ff731e;
+  }
+}
+
 .users-panel {
+  color: white;
   font-size: 12px;
   @include inlineblock();
   width: 20%;
   height: 100%;
   background-color: $orange;
+}
+
+.user-blk {
+  margin: 20px;
+  .name {
+    font-size: 16px;
+    font-weight: 700;
+  }
+  .photo {
+      border: 1px solid $orange;
+    &:hover {
+      border: 1px solid $grey;
+    }
+  }
+}
+
+.user-list {
+  margin: 20px;
+  .title {
+    border-bottom: 2px solid $grey;
+  }
+  padding-bottom: 10px;
+  display: none;
 }
 
 .messages-panel {
@@ -52,6 +157,7 @@
 }
 
 .btn {
+  text-align: center;
   font-size: 16px;
   height: 100%;
   width: 10%;
@@ -69,8 +175,7 @@
 .message-blk {
   width: 90%;
   margin-left: 10px;
-  cursor: move;
-  border-radius: 30px;
+  border-radius: 35px;
   border: 1px solid $grey;
   padding: 10px;
   margin-top: 10px;
@@ -80,7 +185,7 @@
 }
 
 .name {
-  width: 50%;
+  width: 70%;
   margin-left: 7px;
   @include inlineblock(middle);
 }
@@ -90,6 +195,12 @@
   height: 50px;
   width: 50px;
   border-radius: 50%;
+  overflow: hidden;
+  img {
+    max-width: 100%;
+    min-height: 100%;
+  }
+
 }
 
 ::-webkit-scrollbar {

@@ -4,16 +4,38 @@ html
     include head
   body
     .wrapper
+      .login-blk#login
+        .title Авторизация
+        .fields
+          input.user-name(placeholder="ФИО")
+          input.user-nick(placeholder="Ник")
+          .fields-btn#login-btn Войти
+      .load-blk#load
+        .title Загрузка фото
+        .fields
+          .load-area
+            p Перетащите сюда фото
+        .fields-btn#cancel-btn Отменить
+        .fields-btn#load-btn Загрузить
       .users-panel
+        .user-blk#user
+          .photo
+            img#user-photo(src="https://vk.com/images/camera_50.png")
+          .name#user-name Добро пожаловать!
+        .user-list#user-list
+          .title Участники (
+            span.number 0
+            | )
+          .list
       .messages-panel
         .messages#subscribe
         form(id="publish")
           textarea(id="text" class="message" placeholder="Сообщение")
           .btn#submit Отправить
   script(type="text/x-handlebars-template" id="messageTemplate")
-    .photo(style='background: url({{ photo }}) no-repeat center')
+    .photo
+      img(src='{{ user_photo }}' data-photo='{{user_nick}}')
     .text-blk
-      .name {{name}} ({{nick_name}}) написано: {{time}}
+      .name {{user_name}} ({{user_nick}}) написано: {{date}}
       .text {{text}}
-    //.cross
   script(src="js/index.js")
