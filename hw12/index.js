@@ -1,21 +1,29 @@
 ymaps.ready(function () {
-    console.log("start");
     var myMap,
         currentId = 0,
-        objects = {},
         MyClusterBalloonLayout = ymaps.templateLayoutFactory.createClass(
             '<div class="carousel-name">' +
-                '{{ properties.place | raw}}' +
+                '<b>{{ properties.place | raw}}</b>' +
             '</div>' +
-            '<div class="carousel-address">' +
-                '{{ properties.address | raw}}' +
+            '<div class="carousel-address" data-id="{{properties.id}}">' +
+                '<a href="#" data-id="{{properties.id}}">{{ properties.address | raw}}</a>' +
             '</div>' +
             '<div class="carousel-rewievs">' +
-                '{{properties.rewievs | raw }}' +
-            '</div>'
+                '<div>{{properties.name | raw }}</div>' +
+                '<div>{{properties.rewiev | raw }}</div>' +
+                '<div>{{properties.time | raw }}</div>' +
+            '</div>',
+            {
+                build: function () {
+                    MyClusterBalloonLayout.superclass.build.call(this);
+                    document.querySelector(".carousel-address").addEventListener('click', function (e) {
+                        objectManager.objects.balloon.open(e.target.dataset.id);
+                        setCentre(objectManager.objects.getById(e.target.dataset.id).properties.coords);
+                    });
+                }
+            }
         ),
         objectManager = new ymaps.ObjectManager({
-            // Чтобы метки начали кластеризоваться, выставляем опцию.
             clusterize: true,
             geoObjectOpenBalloonOnClick: true,
             clusterOpenBalloonOnClick: true,
@@ -34,7 +42,6 @@ ymaps.ready(function () {
                     '</div>' +
                 '</div>' +
                 '<div class="menu-rewievs">' +
-                    '{{properties.rewievs | raw }}' +
                 '</div>' +
                 '<div class="menu-form">' +
                     '<input type="text" placeholder="Название места" class="place">' +
@@ -46,27 +53,9 @@ ymaps.ready(function () {
             {
                 build: function () {
                     MyBalloonLayout.superclass.build.call(this);
+                    get_rewievs(document.querySelector(".geo-address").innerText);
                     document.querySelector(".close").addEventListener('click', bind(function () { this.onCloseClick() }, this));
                     document.querySelector(".btn").addEventListener('click', bind(function () { addRewiev(this) }, this));
-                },
-
-                _isElement: function (element) {
-                    return element && element[0];
-                },
-
-                getShape: function () {
-                    if(!this._isElement(this['_element'])) {
-                        return MyBalloonLayout.superclass.getShape.call(this);
-                    }
-
-                    var position = this['_element'].position();
-
-                    return new ymaps.shape.Rectangle(new ymaps.geometry.pixel.Rectangle([
-                        [position.left, position.top], [
-                            position.left + this['_element'][0].offsetWidth,
-                            position.top + this['_element'][0].offsetHeight + this['_element'].find('.arrow')[0].offsetHeight
-                        ]
-                    ]));
                 },
 
                 onCloseClick: function () {
@@ -75,40 +64,44 @@ ymaps.ready(function () {
                 }
             });
 
-    console.log("vars");
-    function object_click(e) {
-        e.preventDefault();
-        var objectId = e.get('objectId'),
-            object = objectManager.objects.getById(objectId);
+    function open_obj_baloon(objectId) {
         var objectState = objectManager.getObjectState(objectId);
         if (objectState.isClustered) {
-            // Сделаем так, чтобы указанный объект был "выбран" в балуне.
             objectManager.clusters.state.set('activeObject', objectManager.objects.getById(objectId));
-            // Все сгенерированные кластеры имеют уникальные идентификаторы.
-            // Этот идентификатор нужно передать в менеджер балуна, чтобы указать,
-            // на каком кластере нужно показать балун.
             objectManager.clusters.balloon.open(objectState.cluster.id);
+            setCentre(objectManager.objects.getById(objectId).properties.coords);
         } else {
             objectManager.objects.balloon.open(objectId);
+            setCentre(objectManager.objects.getById(objectId).properties.coords);
         }
+    }
+
+    function object_click(e) {
+        e.preventDefault();
+        var objectId = e.get('objectId');
+        open_obj_baloon(objectId);
     }
 
     objectManager.objects.events.add('click', function (e) { object_click(e) });
     objectManager.clusters.events.add('click', function (e) { object_click(e) });
 
-    function addMark(coords, address) {
+    function addMark(address, coords, name, place, rewiev) {
+        var id = currentId++;
         objectManager.add({
             type: 'Feature',
-            id: currentId++,
+            id: id,
             geometry: {
                 type: 'Point',
                 coordinates: coords
             },
             properties: {
+                id: id,
                 address: address,
-                rewievs: addr_rewievs(coords),
+                rewiev: rewiev,
                 coords: coords,
-                time: new Date().toLocaleString()
+                name: name,
+                place: place,
+                time: new Date().toLocaleString().split(",").join('')
             },
             options: {
                 balloonLayout: MyBalloonLayout,
@@ -116,42 +109,52 @@ ymaps.ready(function () {
             }
         });
         myMap.geoObjects.add(objectManager);
+        open_obj_baloon(id);
     }
 
-    function add_rewiev(menu_name, menu_place, menu_rewiev, addr) {
-        var rew = '<div>' + menu_place + '</div>' +
-                '<div>' + menu_name + '</div>' +
-                '<div>' + menu_rewiev + '</div>';
-        objects[addr].rewievs.push(rew);
-        return rew
-    }
-
-    function addr_rewievs(key) {
-        if (!objects[key]) {
-            objects[key] = {rewievs: []}
+    function get_rewievs(addr) {
+        var objs = objectManager['_objectsCollection']['_objectsById'], res = '';
+        for (var i=0; i < Object.keys(objs).length; i++) {
+            if (objs[i].properties.address == addr) {
+                var obj = objectManager.objects.getById(i).properties;
+                res += '<div class="rewiev-blk" data-id="i">' +
+                        '<div class="rewiev-head">' +
+                            '<span>' +
+                                '<b>' + obj.place + '</b> ' +
+                                obj.name +
+                                ' <em>' + obj.time + '</em>' +
+                            '</span>' +
+                        '</div>' +
+                        '<div class="rewiev-body">' +
+                            obj.rewiev +
+                        '</div>' +
+                    '</div>';
+            }
         }
-        if (objects[key].rewievs.length) {
-            return objects[key].rewievs.join()
+        if (!res) {
+            res = 'Пока нет отзывов';
         }
-        return "Пока нет отзывов"
+        document.querySelector(".menu-rewievs").innerHTML = res;
     }
 
     function addRewiev() {
         var menu = arguments[0]['_element'].querySelector(".menu"),
-            menu_address = menu.querySelector(".geo-address").innerText,
             menu_place = menu.querySelector(".place"),
             menu_name = menu.querySelector(".name"),
             menu_rewiev = menu.querySelector(".rewiev"),
-            menu_rewievs = menu.querySelector(".menu-rewievs"),
-            coords = arguments[0]['_data'].properties.coords;
-        if (menu_name && menu_place && menu_rewiev) {
-            add_rewiev(menu_name.value, menu_place.value, menu_rewiev.value, coords);
-            if (!objects[menu_address]) {
-                objects[menu_address] = {rewievs: []}
-            }
-            menu_rewievs.innerHTML = addr_rewievs(arguments[0]['_data'].properties.coords);
+            coords = arguments[0]['_data'].properties.coords,
+            address = arguments[0]['_data'].properties.address;
+        if (!coords) {
+            coords = arguments[0]['_data'].properties['_data'].coords;
         }
-        addMark(coords, arguments[0]['_data'].properties.address);
+        if (!address) {
+            address = arguments[0]['_data'].properties['_data'].address;
+        }
+        if (menu_name.value && menu_place.value && menu_rewiev.value) {
+            // debugger;
+            addMark(address, coords, menu_name.value, menu_place.value, menu_rewiev.value);
+            get_rewievs(address);
+        }
         menu_name.value = '';
         menu_place.value = '';
         menu_rewiev.value = '';
@@ -163,6 +166,10 @@ ymaps.ready(function () {
         };
     }
 
+    function setCentre(coords) {
+        myMap.setCenter(coords, myMap.getZoom(), {duration: 300});
+    }
+
     function createMap (state) {
         myMap = new ymaps.Map('map', state);
 
@@ -172,25 +179,19 @@ ymaps.ready(function () {
                 return res.geoObjects.get(0).properties.get('text');
             }).then(function (res) {
                 if (myMap.balloon.isOpen()) {
-                        myMap.balloon.close();
+                    myMap.balloon.close();
                 }
-                myMap.setCenter(coords, myMap.getZoom(), {duration: 300});
+                setCentre(coords);
                 setTimeout(function () {
                 myMap.balloon.open(coords, {
                     properties: {
                         address: res,
-                        rewievs: addr_rewievs(coords),
+                        rewiev: 'Пока нет отзывов',
                         coords: coords
                     }
-                    // screen_position: e.get('domEvent').get('position')
                 }, {
-                    // contentLayout: MyBalloonLayout,
                     panelMaxMapArea: 0,
                     layout: MyBalloonLayout,
-                    // preventAutoPan: true,
-                    // autoPan: true,
-                    // autoPanMargin: 20
-                    // minHeight: 406,
                     offset: [-150, -200]
                 });}, 500);
             });
@@ -198,21 +199,9 @@ ymaps.ready(function () {
 
     }
 
-    console.log('functions');
-
     ymaps.geolocation.get().then(
         function (res) {
-        console.log('geolocation.get');
-        var mapContainer = document.getElementById('map'),
-            bounds = res.geoObjects.get(0).properties.get('boundedBy');
-            // Рассчитываем видимую область для текущей положения пользователя.
-        console.log('mapContainer+coords');
-        // var mapState = ymaps.util.bounds.getCenterAndZoom(
-        //         bounds,
-        //         [mapContainer.width(), mapContainer.height()]
-        //     );
-        // console.log('mapState', mapState);
-        // createMap(mapState);
+        var bounds = res.geoObjects.get(0).properties.get('boundedBy');
         createMap({
             center: bounds[1],
             zoom: 16
@@ -224,5 +213,4 @@ ymaps.ready(function () {
             zoom: 2
         });
     });
-    window.om = objectManager;
 });
