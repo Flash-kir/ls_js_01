@@ -1,13 +1,12 @@
 var WebSocketServer = new require('ws'),
     fs = require('fs');
 
-// подключенные клиенты
 var clients = {}, list = [], messages = [], users = {};
 
-// WebSocket-сервер на порту 8081
 var webSocketServer = new WebSocketServer.Server({
   port: 8081
 });
+
 webSocketServer.on('connection', function(ws) {
 
   var id = Math.random();
